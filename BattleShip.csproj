@@ -43,8 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ShipClasses\BattleshipShip.cs" />
+    <Compile Include="Board.cs" />
+    <Compile Include="ShipClasses\CarrierShip.cs" />
+    <Compile Include="Cell.cs" />
+    <Compile Include="ShipClasses\DestroyerShip.cs" />
+    <Compile Include="SubmarineShip.cs" />
+    <Compile Include="ShipClasses\CruiserShip.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShipClasses\Ship.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
