@@ -8,11 +8,9 @@ namespace BattleShip
 {
     internal class CarrierShip : Ship
     {
-
-        public CarrierShip(Cell[] occupiedCells)
+        public CarrierShip()
         {
-            OccupiedCells= occupiedCells;
-            MaxHealth = 5;
+            Size = 5;
         }
     }
 }

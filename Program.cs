@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BattleShip;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,13 +13,15 @@ namespace BattleShip
         {
             var a = new Board();
 
-            Console.WriteLine("Hello. Test for Github!");
+            //Console.WriteLine("Hello. Test for Github!");
 
 
+            
 
-            Console.BackgroundColor = ConsoleColor.Blue;
-
-            //Test placing a BattleShip
+            var player1 = new Player();
+            player1.PlaceAllShips();
+            #region Test placing a BattleShip
+            /*
             var cells = a._cells;
             Cell[] TestLocation = new Cell[5]
             {
@@ -34,36 +37,34 @@ namespace BattleShip
                 c.isOccupied= true;
             }
             var Carrier = new CarrierShip(TestLocation);
-
-
+            */
+            #endregion
             #region Coordinate Printing
+
             // Iterates through each cell of a board and prints the coordinates
             string possibleCharacters = "ABCDEFGHIJ";
             int characterDigit = 0;
             char characterChar = ' ';
 
-            StringBuilder RowToPrint = new StringBuilder();
-            
+            Console.WriteLine("Player One's Board");
+            Console.BackgroundColor = ConsoleColor.Blue;
+
+            var testBoard = player1.Board._cells;
             for (int i = 0;i < 10; i++)
             {
-                RowToPrint.Clear();
-                
                 for (int j=0;j < 10;j++)
                 {
-                    if (a._cells[i, j].isOccupied)
+                    if (testBoard[i,j].isOccupied)
                     {
                         Console.BackgroundColor = ConsoleColor.Green;
                     }
 
                     characterChar = possibleCharacters[i];
 
-                    Console.Write($"{characterChar}{a._cells[i, j].Column} ");
-                    //RowToPrint.Append($"{characterChar}{a._cells[i, j].Column} ");
-
+                    Console.Write($"{characterChar}{j} ");
                     Console.BackgroundColor = ConsoleColor.Blue;
                 }
 
-                //RowToPrint.Append('\n');
                 Console.Write("\n");
             }
             #endregion

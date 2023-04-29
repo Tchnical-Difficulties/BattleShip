@@ -11,13 +11,13 @@ namespace BattleShip
         public bool isSunk = false;
         public Cell[] OccupiedCells;
         public string Orientation;
-        public int MaxHealth { get; set; }
+        public int Size { get; set; }
         public int CurrentHealth { get; set; }
 
 
         public Ship()
         {
-
+            
         }
 
 
