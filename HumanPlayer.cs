@@ -9,6 +9,7 @@ namespace BattleShip
     internal class HumanPlayer : Player
     {
 
+
         public HumanPlayer()
         {
 
@@ -17,10 +18,10 @@ namespace BattleShip
         public override void PlaceAllShips()
         {
             PlaceShip(new Ship(Ship.ShipType.Carrier));
-            PlaceShip(new Ship(Ship.ShipType.BattleShip));
-            PlaceShip(new Ship(Ship.ShipType.Submarine));
-            PlaceShip(new Ship(Ship.ShipType.Cruiser));
-            PlaceShip(new Ship(Ship.ShipType.Destroyer));
+            //PlaceShip(new Ship(Ship.ShipType.BattleShip));
+            //PlaceShip(new Ship(Ship.ShipType.Submarine));
+            //PlaceShip(new Ship(Ship.ShipType.Cruiser));
+            //PlaceShip(new Ship(Ship.ShipType.Destroyer));
         }
         public override void PlaceShip(Ship ship)
         {

@@ -39,13 +39,23 @@ namespace BattleShip
                 {
                     Console.BackgroundColor = ConsoleColor.Blue;
 
+                    if (BoardGrid[i, j].isOccupied)
+                    {
+                        Console.BackgroundColor = ConsoleColor.Green;
+                    }
+
+                    if (BoardGrid[i, j].Status == "Hit")
+                    {
+                        Console.BackgroundColor = ConsoleColor.Red;
+                    }
+                    else if (BoardGrid[i, j].Status == "Missed")
+                    {
+                        Console.BackgroundColor = ConsoleColor.Gray;
+                    }
+
                     if (BoardGrid[i, j] == _currentChoice)
                     {
                         Console.BackgroundColor = ConsoleColor.White;
-                    }
-                    else if (BoardGrid[i, j].isOccupied)
-                    {
-                        Console.BackgroundColor = ConsoleColor.Green;
                     }
 
                     characterChar = possibleCharacters[i];
@@ -69,6 +79,7 @@ namespace BattleShip
 
             while (true)
             {
+                
                 UpdateDisplay();
                 keyInfo = Console.ReadKey(true);
 
@@ -92,6 +103,9 @@ namespace BattleShip
                         break;
 
                     case ConsoleKey.Enter:
+                        var row = AttemptedCell.Row;
+                        var col = AttemptedCell.Column;
+                        AttemptedCell = Player1Board._cells[row, col];
                         return AttemptedCell;
 
 

@@ -29,27 +29,39 @@ namespace BattleShip
 
             Players[0].PlaceAllShips();
 
-
         }
 
         private void GameLoop()
         {
             var ui = new UIGamePlay(Players[0], Players[1]);
-            Cell shot;
+            bool GameHasEnded = false;
+            Cell shot = new Cell(0, 0);
 
-            while (true)
+            while (!GameHasEnded)
             {
                 shot = Players[0].MakeMove(ui);
+
+                while (!Players[0].Board.ValidateShot(shot))
+                {
+                    shot = Players[0].MakeMove(ui);
+                }
                 if (Players[0].Board.IsAHit(shot))
                 {
+                    
                     Console.WriteLine("Nice shot");
-                    Console.ReadLine();
+                    if (shot.OccupyingShip.RegisterHit())
+                    {
+                        Console.WriteLine($"You sunk a {shot.OccupyingShip.Type}\n");
+                    }
+                    Console.ReadKey();
                 }
 
                 else{
                     Console.WriteLine("That shot was a miss! try again!");
-                    Console.ReadLine();
+                    Console.ReadKey();
                 }
+
+                GameHasEnded = CheckForWin();
             }
 
         }
@@ -61,7 +73,23 @@ namespace BattleShip
 
         private bool CheckForWin()
         {
-            return true;
+            if (Players.Exists(x => x.ShipsRemaining == 0))
+            {
+                foreach (Player p in Players)
+                {
+                    if (p.ShipsRemaining == 0)
+                    {
+                        p.WinStatus = "Win";
+
+                    }
+                    else
+                    {
+                        p.WinStatus = "Lose";
+                    }
+                }
+                return true;
+            }
+            return false;
         }
 
         

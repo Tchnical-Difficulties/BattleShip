@@ -15,11 +15,14 @@ namespace BattleShip
         public int Row { get; private set; }
         public int Column { get; private set; }
 
+        public string Status { get; private set; }
+
         public Cell(int row, int col)
         {
             Row = row;
             Column = col;
             isOccupied = false;
+            Status = "Untouched";
         }
 
         public Cell(bool isOccupied, Ship occupyingShip, int row, int column)
@@ -34,6 +37,27 @@ namespace BattleShip
         {
             isOccupied= true;
             OccupyingShip= ship;
+        }
+
+        public void RegisterHit()
+        {
+            Status = "Hit";
+        }
+
+        public void RegisterMiss()
+        {
+            Status = "Missed";
+        }
+
+        public string CoordinatesToString()
+        {
+            string possibleCharacters = "ABCDEFGHIJ";
+
+            StringBuilder result = new StringBuilder();
+
+            result.Append(possibleCharacters[Row]);
+            result.Append(Column.ToString());
+            return result.ToString();
         }
 
         public static bool operator ==(Cell cell1, Cell cell2)
@@ -59,5 +83,6 @@ namespace BattleShip
                 return true;
             }
         }
+
     }
 }

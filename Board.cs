@@ -89,17 +89,49 @@ namespace BattleShip
             return false;
         }
 
+        public bool ValidateShot(Cell shot)
+        {
+            //var ShotLocation = new Cell(0, 0);
+            //foreach (Cell cell in _cells)
+            //{
+            //    if (shot == cell)
+            //    {
+            //        ShotLocation = cell;
+            //    }
+            //}
+
+            if (shot.Status != "Untouched")
+            {
+                Console.WriteLine($"You have already fired a shot here! {shot.CoordinatesToString()}");
+                Console.ReadKey();
+                return false;
+            }
+            return true;
+        }
+
         public bool IsAHit(Cell shot)
         {
-            var shotlocation = new Cell(shot.Row, shot.Column);
-            foreach (Cell c in _cells)
+            var ShotLocation = new Cell(0, 0);
+            foreach (Cell cell in _cells)
             {
-                if(shotlocation == shot && shotlocation.isOccupied)
+                if(shot == cell)
                 {
-                    return true;
+                    ShotLocation = cell;
                 }
             }
-            return false;
+            
+            if (ShotLocation.isOccupied)
+            {
+                ShotLocation.RegisterHit();
+                return true;
+            }
+
+            else
+            {
+                ShotLocation.RegisterMiss();
+                return false;
+
+            }
         }
             
     }

@@ -8,11 +8,11 @@ namespace BattleShip
 {
     internal class Ship
     {
-        public bool isSunk = false;
+        public bool IsSunk { get; private set; }
         public Cell[] OccupiedCells;
         public bool isVertical = true;
         public int Size { get; private set; }
-        public int CurrentHealth { get; set; }
+        public int HitsRemaining { get; set; }
         public ShipType Type { get; set; }
 
         public enum ShipType
@@ -27,11 +27,31 @@ namespace BattleShip
         {
             Size = (int)type;
             Type= type;
+            HitsRemaining = Size;
+            IsSunk = false;
+            OccupiedCells= new Cell[Size];
         }
 
         public void UpdatePosition(Cell[] cells)
         {
-            OccupiedCells= cells;
+            cells.CopyTo(OccupiedCells, 0);
         }
+
+        /// <summary>
+        /// Subtracts 1 from HitsRemaining. Returns true if a ship was sunk with this shot.
+        /// </summary>
+        /// <returns></returns>
+        public bool RegisterHit()
+        {
+            HitsRemaining--;
+            if(HitsRemaining <= 0)
+            {
+                IsSunk = true;
+                return true;
+            }
+            return false;
+        }
+
+
     }
 }
