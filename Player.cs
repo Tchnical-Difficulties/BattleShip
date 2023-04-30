@@ -8,6 +8,7 @@ namespace BattleShip
 {
     internal class Player
     {
+        public List<Ship> Ships= new List<Ship>();
         public Board Board { get; set; }
         public Player()
         {
@@ -16,24 +17,70 @@ namespace BattleShip
 
         public void PlaceAllShips()
         {
-            List<Ship> ships = new List<Ship>()
-            {
-                new CarrierShip(),
-                new CarrierShip(),
-                new CarrierShip(),
-                new CarrierShip(),
-                new CarrierShip()
-            };
+            PlaceShip(new Ship(Ship.ShipType.Carrier));
+            PlaceShip(new Ship(Ship.ShipType.BattleShip));
+            PlaceShip(new Ship(Ship.ShipType.Submarine));
+            PlaceShip(new Ship(Ship.ShipType.Cruiser));
+            PlaceShip(new Ship(Ship.ShipType.Destroyer));
+        }
+        public void PlaceShip(Ship ship)
+        {
+            var BoardGrid = Board._cells;
+            Cell[] PossibleLocation= new Cell[ship.Size];
+            ConsoleKeyInfo keyInfo;
+            //var UI = new UIGamePlay(Board);
 
-            foreach (Ship ship in ships)
+            var ui = new UIPlacingShips(Board, ship);
+            PossibleLocation = ui.HandleUserInput();
+
+            while (Board.IsCollision(PossibleLocation))
             {
-                PlaceSingleShip(ship);
+                PossibleLocation = ui.HandleUserInput();
             }
 
+            Board.AddShip(ship, PossibleLocation);
 
-        }
-        public bool PlaceSingleShip(Ship ship)
-        {
+
+            /*
+            for (int i = 0; i < PossibleLocation.Length; i++)
+            {
+                PossibleLocation[i] = new Cell(0, i);
+            }
+
+            
+            while (true)
+            {
+                keyInfo = Console.ReadKey(true);
+                bool userWantsToExit = false;
+                switch (keyInfo.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        Console.WriteLine("Up arrow pressed");
+                        break;
+                    case ConsoleKey.DownArrow:
+                        Console.WriteLine("Down arrow pressed");
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        Console.WriteLine("Left arrow pressed");
+                        break;
+                    case ConsoleKey.RightArrow:
+                        Console.WriteLine("Right arrow pressed");
+                        break;
+                    case ConsoleKey.Enter:
+                        Console.WriteLine("enter");
+                        userWantsToExit= true;
+                        break;
+                }
+
+                if (userWantsToExit)
+                {
+                    break;
+                }
+            }*/
+
+            
+
+            /*
             Cell[] Location = FindEmptyCellsForShip(ship.Size);
 
             ship.OccupiedCells = Location;
@@ -42,7 +89,7 @@ namespace BattleShip
             {
                 cell.isOccupied = true;
             }
-            return true;
+            return true;*/
         }
 
         private Cell[] FindEmptyCellsForShip(int size)

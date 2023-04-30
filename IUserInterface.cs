@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace BattleShip
 {
-    internal class DestroyerShip
+    internal interface IUserInterface
     {
+        void UpdateDisplay();
+
     }
 }

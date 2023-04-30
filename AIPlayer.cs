@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BattleShip
 {
-    internal class CruiserShip
+    internal class AIPlayer
     {
     }
 }

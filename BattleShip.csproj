@@ -43,17 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AIPlayer.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="IUserInterface.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="ShipClasses\BattleshipShip.cs" />
     <Compile Include="Board.cs" />
-    <Compile Include="ShipClasses\CarrierShip.cs" />
     <Compile Include="Cell.cs" />
-    <Compile Include="ShipClasses\DestroyerShip.cs" />
+    <Compile Include="Ship.cs" />
     <Compile Include="SubmarineShip.cs" />
-    <Compile Include="ShipClasses\CruiserShip.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShipClasses\Ship.cs" />
+    <Compile Include="UIGamePlay.cs" />
+    <Compile Include="UIPlacingShips.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

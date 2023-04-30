@@ -11,6 +11,18 @@ namespace BattleShip
     {
         static void Main(string[] args)
         {
+
+            var Game1 = new Game();
+            Game1.RunGame();
+
+
+
+
+
+
+
+
+
             var a = new Board();
 
             //Console.WriteLine("Hello. Test for Github!");
@@ -19,7 +31,7 @@ namespace BattleShip
             
 
             var player1 = new Player();
-            player1.PlaceAllShips();
+            player1.PlaceShip(new Ship(Ship.ShipType.Carrier));
             #region Test placing a BattleShip
             /*
             var cells = a._cells;
@@ -42,31 +54,15 @@ namespace BattleShip
             #region Coordinate Printing
 
             // Iterates through each cell of a board and prints the coordinates
-            string possibleCharacters = "ABCDEFGHIJ";
-            int characterDigit = 0;
-            char characterChar = ' ';
+            
 
             Console.WriteLine("Player One's Board");
             Console.BackgroundColor = ConsoleColor.Blue;
 
-            var testBoard = player1.Board._cells;
-            for (int i = 0;i < 10; i++)
-            {
-                for (int j=0;j < 10;j++)
-                {
-                    if (testBoard[i,j].isOccupied)
-                    {
-                        Console.BackgroundColor = ConsoleColor.Green;
-                    }
+            var testBoard = player1.Board;
 
-                    characterChar = possibleCharacters[i];
-
-                    Console.Write($"{characterChar}{j} ");
-                    Console.BackgroundColor = ConsoleColor.Blue;
-                }
-
-                Console.Write("\n");
-            }
+            var testUI = new UIGamePlay(testBoard);
+            testUI.UpdateDisplay();
             #endregion
 
 

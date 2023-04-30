@@ -10,16 +10,54 @@ namespace BattleShip
 {
     internal class Cell
     {
-        public bool isOccupied = false;
+        public bool isOccupied { get; private set; }
+        public Ship OccupyingShip { get; private set; }
         public int Row { get; private set; }
         public int Column { get; private set; }
 
-        public Cell(int x, int y)
+        public Cell(int row, int col)
         {
-            Row = x;
-            Column = y;
+            Row = row;
+            Column = col;
+            isOccupied = false;
         }
 
-        
+        public Cell(bool isOccupied, Ship occupyingShip, int row, int column)
+        {
+            this.isOccupied = isOccupied;
+            OccupyingShip = occupyingShip;
+            Row = row;
+            Column = column;
+        }
+
+        public void OccupyCell(Ship ship)
+        {
+            isOccupied= true;
+            OccupyingShip= ship;
+        }
+
+        public static bool operator ==(Cell cell1, Cell cell2)
+        {
+            if(cell1.Row == cell2.Row && cell1.Column == cell2.Column)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool operator !=(Cell cell1, Cell cell2)
+        {
+            if (cell1.Row == cell2.Row && cell1.Column == cell2.Column)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }
