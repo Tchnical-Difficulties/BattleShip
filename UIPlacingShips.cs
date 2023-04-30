@@ -30,6 +30,7 @@ namespace BattleShip
             for (int i = 0; i < CurrentCoordinate.Length; i++)
             {
                 CurrentCoordinate[i] = new Cell(i, 0);
+                AttemptedCoordinate[i] = new Cell(i, 0);
             }
 
             // Initialize temporary ship for display purposes

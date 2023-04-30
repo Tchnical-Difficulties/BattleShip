@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace BattleShip
 {
-    internal class AIPlayer : Player
+    internal interface IPlayer
     {
-        public AIPlayer()
-        {
-
-        }
+        void PlaceAllShips();
+        void PlaceShip(Ship ship);
+        Cell MakeMove(UIGamePlay ui);
     }
 }

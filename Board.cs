@@ -45,7 +45,15 @@ namespace BattleShip
                 }
             }
             return true;
+        }
 
+        public static bool IsInBounds(Cell cell)
+        {
+            if (cell.Row < 0 || cell.Row > 9 || cell.Column < 0 || cell.Column > 9)
+            {
+                return false;
+            }
+            return true;
         }
 
         public void AddShip(Ship ship, Cell[] coordinates)
@@ -76,6 +84,19 @@ namespace BattleShip
                     {
                         return true;
                     }
+                }
+            }
+            return false;
+        }
+
+        public bool IsAHit(Cell shot)
+        {
+            var shotlocation = new Cell(shot.Row, shot.Column);
+            foreach (Cell c in _cells)
+            {
+                if(shotlocation == shot && shotlocation.isOccupied)
+                {
+                    return true;
                 }
             }
             return false;
