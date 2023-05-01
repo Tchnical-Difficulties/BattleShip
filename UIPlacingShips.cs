@@ -75,6 +75,32 @@ namespace BattleShip
                         }
                         break;
 
+                    case ConsoleKey.R:
+
+                        if (_temporaryShip.isVertical)
+                        {
+                            _temporaryShip.isVertical = false;
+
+                            for (int i = 0; i < CurrentCoordinate.Length; i++)
+                            {
+                                CurrentCoordinate[i] = new Cell(0, i);
+                                AttemptedCoordinate[i] = new Cell(0, i);
+                            }
+                        }
+                        else
+                        {
+                            _temporaryShip.isVertical = false;
+
+                            for (int i = 0; i < CurrentCoordinate.Length; i++)
+                            {
+                                CurrentCoordinate[i] = new Cell(i, 0);
+                                AttemptedCoordinate[i] = new Cell(i, 0);
+                            }
+                        }
+                        Console.WriteLine("You pressed R");
+                        
+                        break;
+
                     case ConsoleKey.Enter:
                         return AttemptedCoordinate;
                        

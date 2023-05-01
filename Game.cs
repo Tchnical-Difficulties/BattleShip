@@ -27,7 +27,9 @@ namespace BattleShip
             Players.Add(new AIPlayer());
             PlayerBoards.Add(Players[1].Board);
 
-            Players[0].PlaceAllShips();
+           // Players[0].PlaceAllShips();
+            Players[1].PlaceAllShips();
+
 
         }
 

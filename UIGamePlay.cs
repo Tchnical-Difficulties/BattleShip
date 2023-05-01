@@ -24,6 +24,7 @@ namespace BattleShip
         {
             Console.Clear();
             PrintBoard(Player1Board);
+            PrintBoard(Player2Board);
         }
 
         private void PrintBoard(Board Board)
