@@ -35,6 +35,7 @@ namespace BattleShip
         public void UpdatePosition(Cell[] cells)
         {
             cells.CopyTo(OccupiedCells, 0);
+
         }
 
         /// <summary>

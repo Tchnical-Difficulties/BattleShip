@@ -58,18 +58,21 @@ namespace BattleShip
 
         public void AddShip(Ship ship, Cell[] coordinates)
         {
-            Ships.Add(ship);
-            ship.UpdatePosition(coordinates);
-            foreach(Cell cell in ship.OccupiedCells)
+            for(int i=0; i<coordinates.Length; i++)
             {
-                foreach (Cell c in _cells)
+                foreach(Cell cell2 in _cells)
                 {
-                    if(cell == c)
+                    if (coordinates[i] == cell2)
                     {
-                        c.OccupyCell(ship);
+                        coordinates[i] = cell2;
+                        coordinates[i].OccupyCell(ship);
                     }
                 }
             }
+
+            Ships.Add(ship);
+            ship.UpdatePosition(coordinates);
+            
         }
 
         public bool IsCollision(Cell[] coordinates)
@@ -91,19 +94,18 @@ namespace BattleShip
 
         public bool ValidateShot(Cell shot)
         {
-            //var ShotLocation = new Cell(0, 0);
-            //foreach (Cell cell in _cells)
-            //{
-            //    if (shot == cell)
-            //    {
-            //        ShotLocation = cell;
-            //    }
-            //}
+            var ShotLocation = new Cell(0, 0);
+            foreach (Cell cell in _cells)
+            {
+                if (shot == cell)
+                {
+                    ShotLocation = cell;
+                }
+            }
 
             if (shot.Status != "Untouched")
             {
-                Console.WriteLine($"You have already fired a shot here! {shot.CoordinatesToString()}");
-                Console.ReadKey();
+                
                 return false;
             }
             return true;
@@ -122,6 +124,7 @@ namespace BattleShip
             
             if (ShotLocation.isOccupied)
             {
+               
                 ShotLocation.RegisterHit();
                 return true;
             }

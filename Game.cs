@@ -27,7 +27,7 @@ namespace BattleShip
             Players.Add(new AIPlayer());
             PlayerBoards.Add(Players[1].Board);
 
-           // Players[0].PlaceAllShips();
+            Players[0].PlaceAllShips();
             Players[1].PlaceAllShips();
 
 
@@ -38,32 +38,73 @@ namespace BattleShip
             var ui = new UIGamePlay(Players[0], Players[1]);
             bool GameHasEnded = false;
             Cell shot = new Cell(0, 0);
+            int PlayerTurn = 0;
+            int Opponent = 1;
 
             while (!GameHasEnded)
             {
+                
+                // User's Turn
                 shot = Players[0].MakeMove(ui);
+                shot = ui.PlayerShotReference(shot);
 
-                while (!Players[0].Board.ValidateShot(shot))
+                while (!Players[1].Board.ValidateShot(shot))
                 {
                     shot = Players[0].MakeMove(ui);
+                    shot = ui.PlayerShotReference(shot);
                 }
-                if (Players[0].Board.IsAHit(shot))
+                if (Players[1].Board.IsAHit(shot))
                 {
-                    
-                    Console.WriteLine("Nice shot");
+                    ui.SuccessfulShot(shot);
                     if (shot.OccupyingShip.RegisterHit())
                     {
-                        Console.WriteLine($"You sunk a {shot.OccupyingShip.Type}\n");
+                        ui.SunkAShip(shot.OccupyingShip);
+                        Players[1].ShipsRemaining--;
                     }
-                    Console.ReadKey();
                 }
 
                 else{
-                    Console.WriteLine("That shot was a miss! try again!");
-                    Console.ReadKey();
+                    ui.MissedShot(shot);
+                }
+                
+                
+
+                if (CheckForWin())
+                {
+                    break;
+                }
+                else
+                {
+                    Console.ReadKey(); // Gives user time to read results
                 }
 
+                // Computer's Turn
+                shot = Players[1].MakeMove(ui);
+                shot = ui.OpponentShotReference(shot);
+
+                while (!Players[0].Board.ValidateShot(shot))
+                {
+                    shot = Players[1].MakeMove(ui);
+                    shot = ui.OpponentShotReference(shot);
+                }
+                if (Players[0].Board.IsAHit(shot))
+                {
+
+                    if (shot.OccupyingShip.RegisterHit())
+                    {
+                        //a ship was sunk on this turn
+                    }
+
+                }
+
+                else
+                {
+                    //miss
+                }
                 GameHasEnded = CheckForWin();
+
+                PlayerTurn = (PlayerTurn + 1) % Players.Count;
+                Opponent = (Opponent + 1) % Players.Count;
             }
 
         }
@@ -82,6 +123,9 @@ namespace BattleShip
                     if (p.ShipsRemaining == 0)
                     {
                         p.WinStatus = "Win";
+                        Console.WriteLine("Somebody won the game.");
+                        Console.WriteLine("Press any key to continue.");
+                        Console.ReadKey();
 
                     }
                     else

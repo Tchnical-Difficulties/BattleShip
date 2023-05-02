@@ -18,10 +18,10 @@ namespace BattleShip
         public override void PlaceAllShips()
         {
             PlaceShip(new Ship(Ship.ShipType.Carrier));
-            PlaceShip(new Ship(Ship.ShipType.BattleShip));
-            PlaceShip(new Ship(Ship.ShipType.Submarine));
-            PlaceShip(new Ship(Ship.ShipType.Cruiser));
-            PlaceShip(new Ship(Ship.ShipType.Destroyer));
+            //PlaceShip(new Ship(Ship.ShipType.BattleShip));
+            //PlaceShip(new Ship(Ship.ShipType.Submarine));
+            //PlaceShip(new Ship(Ship.ShipType.Cruiser));
+            //PlaceShip(new Ship(Ship.ShipType.Destroyer));
         }
 
         public override void PlaceShip(Ship ship)
@@ -68,9 +68,11 @@ namespace BattleShip
                 }
                 
             } while (Board.IsCollision(PossibleLocation) || !Board.IsInBounds(PossibleLocation));
-            ship.UpdatePosition(PossibleLocation);
+
+
             Board.AddShip(ship, PossibleLocation);
             ship.isVertical = ShipIsVertical;
+            ShipsRemaining++;
 
 
             //ConsoleKeyInfo keyInfo;
@@ -90,14 +92,7 @@ namespace BattleShip
 
         public override Cell MakeMove(UIGamePlay ui)
         {
-            var Move = ui.HandleUserInput();
-
-            while (!Board.IsInBounds(Move))
-            {
-                Move = ui.HandleUserInput();
-            }
-
-            return Move;
+            return new Cell(rand.Next(0, 9), rand.Next(0, 9));
         }
     }
 }

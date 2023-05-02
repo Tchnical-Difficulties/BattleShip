@@ -15,7 +15,7 @@ namespace BattleShip
         public Player()
         {
             Board = new Board();
-            ShipsRemaining = 5;
+            ShipsRemaining = 0;
         }
 
         public virtual void PlaceAllShips()
