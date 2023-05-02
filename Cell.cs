@@ -56,7 +56,7 @@ namespace BattleShip
             StringBuilder result = new StringBuilder();
 
             result.Append(possibleCharacters[Row]);
-            result.Append(Column.ToString());
+            result.Append((Column+1).ToString());
             return result.ToString();
         }
 

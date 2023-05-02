@@ -155,7 +155,8 @@ namespace BattleShip
 
                     if (cellContainsTempShip)
                     {
-                        Console.BackgroundColor = ConsoleColor.Magenta;
+                        Console.BackgroundColor = ConsoleColor.DarkYellow;
+                        Console.ForegroundColor = ConsoleColor.Black;
                     }
                     else if (BoardGrid[i, j].isOccupied)
                     {
@@ -164,12 +165,14 @@ namespace BattleShip
 
                     characterChar = possibleCharacters[i];
 
-                    Console.Write($"{characterChar}{j} ");
-
+                    Console.Write($"[ ]");
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.White;
 
                 }
                 Console.Write("\n");
                 Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 

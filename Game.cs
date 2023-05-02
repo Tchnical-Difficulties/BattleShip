@@ -50,15 +50,20 @@ namespace BattleShip
 
                 while (!Players[1].Board.ValidateShot(shot))
                 {
+                    ui.RepeatedShot(shot);
+                    
                     shot = Players[0].MakeMove(ui);
                     shot = ui.PlayerShotReference(shot);
                 }
                 if (Players[1].Board.IsAHit(shot))
                 {
+                    ui.ClearShot();
+                    ui.UpdateDisplay();
                     ui.SuccessfulShot(shot);
                     if (shot.OccupyingShip.RegisterHit())
                     {
                         ui.SunkAShip(shot.OccupyingShip);
+                        Players[1].Board.SunkShips.Add(shot.OccupyingShip);
                         Players[1].ShipsRemaining--;
                     }
                 }
@@ -75,6 +80,7 @@ namespace BattleShip
                 }
                 else
                 {
+                    Console.WriteLine("Press any key to continue");
                     Console.ReadKey(); // Gives user time to read results
                 }
 
@@ -89,22 +95,25 @@ namespace BattleShip
                 }
                 if (Players[0].Board.IsAHit(shot))
                 {
+                    ui.UpdateDisplay();
+                    ui.EnemyHit(shot);
 
                     if (shot.OccupyingShip.RegisterHit())
                     {
-                        //a ship was sunk on this turn
+                        ui.EnemySunkAShip(shot.OccupyingShip);
                     }
 
                 }
 
                 else
                 {
-                    //miss
+                    ui.UpdateDisplay();
+                    ui.EnemyMiss(shot);
                 }
                 GameHasEnded = CheckForWin();
 
-                PlayerTurn = (PlayerTurn + 1) % Players.Count;
-                Opponent = (Opponent + 1) % Players.Count;
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
             }
 
         }

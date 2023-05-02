@@ -9,6 +9,7 @@ namespace BattleShip
     internal class Board
     {
         public List<Ship> Ships = new List<Ship>();
+        public List<Ship> SunkShips= new List<Ship>();
         
         public Cell[,] _cells= new Cell[10,10];
 
@@ -116,15 +117,14 @@ namespace BattleShip
             var ShotLocation = new Cell(0, 0);
             foreach (Cell cell in _cells)
             {
-                if(shot == cell)
+                if (shot == cell)
                 {
                     ShotLocation = cell;
                 }
             }
             
             if (ShotLocation.isOccupied)
-            {
-               
+            { 
                 ShotLocation.RegisterHit();
                 return true;
             }
@@ -136,6 +136,8 @@ namespace BattleShip
 
             }
         }
+
+
             
     }
 
