@@ -26,7 +26,7 @@ namespace BattleShip
             Console.Clear();
             Console.WriteLine("           Enemy Field");
             PrintOpponentBoard(Player2Board);
-            Console.Write("--------------------------------------------------------------\n");
+            Console.Write("-------------------------------------------------------------\n");
 
             Console.WriteLine("           Your Field");
             PrintBoard(Player1Board);

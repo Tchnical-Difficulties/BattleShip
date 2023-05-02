@@ -101,7 +101,7 @@ namespace BattleShip
                         
                         break;
 
-                    case ConsoleKey.Enter:
+                    case ConsoleKey.Spacebar:
                         return AttemptedCoordinate;
                        
 
@@ -128,7 +128,11 @@ namespace BattleShip
         public void UpdateDisplay()
         {
             Console.Clear();
+            Console.WriteLine("       Place Your Ships");
             PrintBoard(_incomingBoard);
+            Console.WriteLine("Arrow keys: Move Ship");
+            Console.WriteLine("R: Rotate ship");
+            Console.WriteLine("Space Bar: Place Ship");
         }
         private void PrintBoard(Board Board)
         {

@@ -15,8 +15,21 @@ namespace BattleShip
 
         public void RunGame()
         {
-            InitializeGame();
-            GameLoop();
+            int UserChoice = 0;
+
+            UserChoice = MainMenuLoop();
+
+            while(UserChoice == 0)
+            {
+                InitializeGame();
+                GameLoop();
+                UserChoice = MainMenuLoop();
+            }
+
+
+            Exit();
+            return;
+            
         }
 
         private void InitializeGame()
@@ -27,12 +40,30 @@ namespace BattleShip
             Players.Add(new AIPlayer());
             PlayerBoards.Add(Players[1].Board);
 
+            
             Players[0].PlaceAllShips();
             Players[1].PlaceAllShips();
 
 
         }
-
+        private void Exit()
+        {
+            Console.Clear();
+            Console.WriteLine("Thanks for playing!\nPress any key to exit.");
+            Console.ReadKey();
+        }
+        private int MainMenuLoop()
+        {
+            var ui = new UIMainMenu();
+            if (ui.HandleUserInput() == 0)
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
+        }
         private void GameLoop()
         {
             var ui = new UIGamePlay(Players[0], Players[1]);
@@ -125,26 +156,24 @@ namespace BattleShip
 
         private bool CheckForWin()
         {
-            if (Players.Exists(x => x.ShipsRemaining == 0))
+            if (Players[0].ShipsRemaining == 0)
             {
-                foreach (Player p in Players)
-                {
-                    if (p.ShipsRemaining == 0)
-                    {
-                        p.WinStatus = "Win";
-                        Console.WriteLine("Somebody won the game.");
-                        Console.WriteLine("Press any key to continue.");
-                        Console.ReadKey();
-
-                    }
-                    else
-                    {
-                        p.WinStatus = "Lose";
-                    }
-                }
+                Console.WriteLine("The enemy won the game!");
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
                 return true;
             }
-            return false;
+            else if (Players[1].ShipsRemaining == 0)
+            {
+                Console.WriteLine("You won the game!");
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         
