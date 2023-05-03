@@ -8,8 +8,6 @@ namespace BattleShip
 {
     internal class HumanPlayer : Player
     {
-
-
         public HumanPlayer()
         {
 
@@ -18,11 +16,16 @@ namespace BattleShip
         public override void PlaceAllShips()
         {
             PlaceShip(new Ship(Ship.ShipType.Carrier));
-            //PlaceShip(new Ship(Ship.ShipType.BattleShip));
-            //PlaceShip(new Ship(Ship.ShipType.Submarine));
-            //PlaceShip(new Ship(Ship.ShipType.Cruiser));
-            //PlaceShip(new Ship(Ship.ShipType.Destroyer));
+            PlaceShip(new Ship(Ship.ShipType.BattleShip));
+            PlaceShip(new Ship(Ship.ShipType.Submarine));
+            PlaceShip(new Ship(Ship.ShipType.Cruiser));
+            PlaceShip(new Ship(Ship.ShipType.Destroyer));
         }
+        /// <summary>
+        /// Allows user to place a ship. Ship is added to Board class
+        /// and user's ShipsRemaining property is incremented by 1
+        /// </summary>
+        /// <param name="ship"></param>
         public override void PlaceShip(Ship ship)
         {
             var BoardGrid = Board._cells;
@@ -33,6 +36,7 @@ namespace BattleShip
 
             while (Board.IsCollision(PossibleLocation))
             {
+                ui.InvalidLocation();
                 PossibleLocation = ui.HandleUserInput();
             }
 
@@ -41,6 +45,11 @@ namespace BattleShip
 
         }
 
+        /// <summary>
+        /// Allows user to select a cell to fire at
+        /// </summary>
+        /// <param name="ui"></param>
+        /// <returns>Cell to attempt a shot</returns>
         public override Cell MakeMove(UIGamePlay ui)
         {
             var Move = ui.HandleUserInput();

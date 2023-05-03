@@ -35,7 +35,11 @@ namespace BattleShip
             }
             Console.Write("\n");
         }
-
+        /// <summary>
+        /// Allows user to select between starting a game or exiting the game
+        /// </summary>
+        /// <returns>1: exit
+        /// 2: start game</returns>
         public int HandleUserInput()
         {
             ConsoleKeyInfo keyInfo;

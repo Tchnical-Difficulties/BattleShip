@@ -124,7 +124,11 @@ namespace BattleShip
 
             }
         }
-
+        public void InvalidLocation()
+        {
+            Console.WriteLine("You can not place a ship here.\nPress any key to continue");
+            Console.ReadKey();
+        }
         public void UpdateDisplay()
         {
             Console.Clear();
@@ -138,7 +142,6 @@ namespace BattleShip
         {
             var BoardGrid = Board._cells;
             string possibleCharacters = "ABCDEFGHIJ";
-            int characterDigit = 0;
             char characterChar = ' ';
 
             for (int i = 0; i < 10; i++)
@@ -180,15 +183,5 @@ namespace BattleShip
             }
         }
 
-        private Cell[] CopyCells(Cell[] cells)
-        {
-            Cell[] CopiedCells = new Cell[cells.Length];
-            for(int i=0; i<cells.Length; i++)
-            {
-                CopiedCells[i] = new Cell(cells[i].isOccupied,cells[i].OccupyingShip, cells[i].Row, cells[i].Column);
-            }
-
-            return CopiedCells;
-        }
     }
 }

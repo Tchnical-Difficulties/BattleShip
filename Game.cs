@@ -17,8 +17,10 @@ namespace BattleShip
         {
             int UserChoice = 0;
 
+            // MainMenuLoop will prompt user for decision to start game or exit program
             UserChoice = MainMenuLoop();
 
+            // Loop initializes a game and keeps prompting user to play until they choose to exit
             while(UserChoice == 0)
             {
                 InitializeGame();
@@ -26,12 +28,13 @@ namespace BattleShip
                 UserChoice = MainMenuLoop();
             }
 
-
             Exit();
             return;
-            
         }
 
+        /// <summary>
+        /// Initializes two player objects and their ships are placed on the map
+        /// </summary>
         private void InitializeGame()
         {
             Players.Add(new HumanPlayer());
@@ -39,19 +42,23 @@ namespace BattleShip
 
             Players.Add(new AIPlayer());
             PlayerBoards.Add(Players[1].Board);
-
-            
+   
             Players[0].PlaceAllShips();
             Players[1].PlaceAllShips();
-
-
         }
+        /// <summary>
+        /// Displays an exit message for the user
+        /// </summary>
         private void Exit()
         {
             Console.Clear();
             Console.WriteLine("Thanks for playing!\nPress any key to exit.");
             Console.ReadKey();
         }
+        /// <summary>
+        /// Displays user's choices and returns their selection
+        /// </summary>
+        /// <returns></returns>
         private int MainMenuLoop()
         {
             var ui = new UIMainMenu();
@@ -64,19 +71,23 @@ namespace BattleShip
                 return 1;
             }
         }
+        /// <summary>
+        /// Players take turns making shots and the outcome is checked
+        /// The game checks for a winner after every player's turn
+        /// </summary>
         private void GameLoop()
         {
             var ui = new UIGamePlay(Players[0], Players[1]);
             bool GameHasEnded = false;
             Cell shot = new Cell(0, 0);
-            int PlayerTurn = 0;
-            int Opponent = 1;
 
             while (!GameHasEnded)
             {
                 
                 // User's Turn
                 shot = Players[0].MakeMove(ui);
+                // PlayerShotReference makes the shot object reference the actual
+                // cell on the opponents board so it can be updated
                 shot = ui.PlayerShotReference(shot);
 
                 while (!Players[1].Board.ValidateShot(shot))
@@ -86,8 +97,10 @@ namespace BattleShip
                     shot = Players[0].MakeMove(ui);
                     shot = ui.PlayerShotReference(shot);
                 }
+
                 if (Players[1].Board.IsAHit(shot))
                 {
+                    // Clearshot is for display purposes, otherwise the cell remains white
                     ui.ClearShot();
                     ui.UpdateDisplay();
                     ui.SuccessfulShot(shot);
@@ -102,8 +115,6 @@ namespace BattleShip
                 else{
                     ui.MissedShot(shot);
                 }
-                
-                
 
                 if (CheckForWin())
                 {
@@ -133,7 +144,6 @@ namespace BattleShip
                     {
                         ui.EnemySunkAShip(shot.OccupyingShip);
                     }
-
                 }
 
                 else
@@ -146,11 +156,6 @@ namespace BattleShip
                 Console.WriteLine("Press any key to continue");
                 Console.ReadKey();
             }
-
-        }
-
-        private void PostGame()
-        {
 
         }
 
@@ -174,8 +179,6 @@ namespace BattleShip
             {
                 return false;
             }
-        }
-
-        
+        }      
     }
 }

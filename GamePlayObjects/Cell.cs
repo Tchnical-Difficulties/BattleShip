@@ -48,7 +48,11 @@ namespace BattleShip
         {
             Status = "Missed";
         }
-
+        /// <summary>
+        /// Integer coordinates 0-9 are converted to a string with rows A-J and
+        /// columns 1-9
+        /// </summary>
+        /// <returns></returns>
         public string CoordinatesToString()
         {
             string possibleCharacters = "ABCDEFGHIJ";
@@ -59,7 +63,12 @@ namespace BattleShip
             result.Append((Column+1).ToString());
             return result.ToString();
         }
-
+        /// <summary>
+        /// Cells will be considered equal if their coordinates match
+        /// </summary>
+        /// <param name="cell1"></param>
+        /// <param name="cell2"></param>
+        /// <returns></returns>
         public static bool operator ==(Cell cell1, Cell cell2)
         {
             if(cell1.Row == cell2.Row && cell1.Column == cell2.Column)

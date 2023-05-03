@@ -43,21 +43,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AIPlayer.cs" />
+    <Compile Include="Players\AIPlayer.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="HumanPlayer.cs" />
-    <Compile Include="IPlayer.cs" />
-    <Compile Include="IUserInterface.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="Board.cs" />
-    <Compile Include="Cell.cs" />
-    <Compile Include="Ship.cs" />
-    <Compile Include="SubmarineShip.cs" />
+    <Compile Include="Players\HumanPlayer.cs" />
+    <Compile Include="Players\IPlayer.cs" />
+    <Compile Include="UserInterface\IUserInterface.cs" />
+    <Compile Include="Players\Player.cs" />
+    <Compile Include="GamePlayObjects\Board.cs" />
+    <Compile Include="GamePlayObjects\Cell.cs" />
+    <Compile Include="GamePlayObjects\Ship.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UIGamePlay.cs" />
-    <Compile Include="UIMainMenu.cs" />
-    <Compile Include="UIPlacingShips.cs" />
+    <Compile Include="UserInterface\UIGamePlay.cs" />
+    <Compile Include="UserInterface\UIMainMenu.cs" />
+    <Compile Include="UserInterface\UIPlacingShips.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

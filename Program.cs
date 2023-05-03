@@ -14,7 +14,7 @@ namespace BattleShip
 
             var Game1 = new Game();
             Game1.RunGame();
-;
+            return;
         }
     }
 }

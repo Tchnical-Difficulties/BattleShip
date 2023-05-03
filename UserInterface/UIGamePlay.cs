@@ -21,6 +21,9 @@ namespace BattleShip
             Player1Board = player1.Board;
             Player2Board = player2.Board;
         }
+        /// <summary>
+        /// Clears the screen and shows all relevant gameplay information
+        /// </summary>
         public void UpdateDisplay()
         {
             Console.Clear();
@@ -34,12 +37,14 @@ namespace BattleShip
             Console.Write("\n");
         }
 
+        /// <summary>
+        /// Prints the player's board. Misses are white, hits are red, ships are green.
+        /// </summary>
+        /// <param name="Board">Player's board</param>
         private void PrintBoard(Board Board)
         {
             var BoardGrid = Board._cells;
             string possibleCharacters = "ABCDEFGHIJ";
-            int characterDigit = 0;
-            char characterChar = ' ';
 
             Console.WriteLine("   1  2  3  4  5  6  7  8  9  10");
             for (int i = 0; i < 10; i++)
@@ -63,10 +68,6 @@ namespace BattleShip
                         Console.BackgroundColor = ConsoleColor.Gray;
                     }
 
-
-
-                    characterChar = possibleCharacters[i];
-
                     Console.Write($"[ ]");
 
                 }
@@ -77,6 +78,10 @@ namespace BattleShip
             }
         }
 
+        /// <summary>
+        /// Prints opponent's board. White cells are a miss, red cells are a hit
+        /// </summary>
+        /// <param name="Board">Opponent's board</param>
         private void PrintOpponentBoard(Board Board)
         {
             var BoardGrid = Board._cells;
@@ -89,18 +94,18 @@ namespace BattleShip
                 Console.Write($"{possibleCharacters[i]} ");
                 for (int j = 0; j < 10; j++)
                 {
+                    // Used for display purposes. The selected cell will be turned white
                     CellIsTargeted = false;
+
+                    //Default color for the map
                     Console.BackgroundColor = ConsoleColor.Blue;
 
-
-                    // temporary for testing purposed=s
+                    /*
                     if (BoardGrid[i, j].isOccupied)
                     {
                         Console.BackgroundColor = ConsoleColor.Green;
                     }
-                    //remove after
-
-
+                    */
 
                     if (BoardGrid[i, j].Status == "Hit")
                     {
@@ -128,19 +133,20 @@ namespace BattleShip
                     }
                     
                     Console.ForegroundColor = ConsoleColor.White;
-                    
-
                 }
 
                 Console.BackgroundColor = ConsoleColor.Black;
                 PrintExtraInfo(i, Players[1]);
                 Console.Write("\n");
                 
-
-                
             }
         }
 
+        /// <summary>
+        /// Displays ships remaining for each player
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="player"></param>
         private void PrintExtraInfo(int row, Player player)
         {
             var SunkenShips = player.Board.SunkShips;
@@ -237,6 +243,12 @@ namespace BattleShip
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
         }
+        /// <summary>
+        /// Returns the instance of a cell from the opponent's board with
+        /// matching coordinates to the incoming cell
+        /// </summary>
+        /// <param name="coordinate"></param>
+        /// <returns></returns>
         public Cell OpponentShotReference(Cell coordinate)
         {
             foreach (Cell c in Player1Board._cells)
@@ -249,7 +261,12 @@ namespace BattleShip
 
             return coordinate;
         }
-
+        /// <summary>
+        /// Returns an instance of a cell from the player's board that matches
+        /// the coordinates of the incoming cell
+        /// </summary>
+        /// <param name="coordinate"></param>
+        /// <returns></returns>
         public Cell PlayerShotReference(Cell coordinate)
         {
             foreach (Cell c in Player2Board._cells)
@@ -263,6 +280,10 @@ namespace BattleShip
             return coordinate;
         }
 
+        /// <summary>
+        /// Allows the user to use arrow keys and space/enter to select a cell to fire at
+        /// </summary>
+        /// <returns>The cell that the user selects</returns>
         public Cell HandleUserInput()
         {
             // Declare grid and two Cell arrays to move user's choice for ship placement
@@ -318,6 +339,9 @@ namespace BattleShip
             }
         }
 
+        /// <summary>
+        /// Resets _currectChoice so the display doesn't keep showing a white cell
+        /// </summary>
         public void ClearShot()
         {
             _currentChoice = new Cell(-1, -1);
@@ -335,7 +359,7 @@ namespace BattleShip
         }
         public void RepeatedShot(Cell coord)
         {
-            Console.WriteLine($"You have already fired a shot at{coord.CoordinatesToString()}.");
+            Console.WriteLine($"You have already fired a shot at {coord.CoordinatesToString()}.");
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
         }

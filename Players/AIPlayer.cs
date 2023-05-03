@@ -21,9 +21,14 @@ namespace BattleShip
             //PlaceShip(new Ship(Ship.ShipType.BattleShip));
             //PlaceShip(new Ship(Ship.ShipType.Submarine));
             //PlaceShip(new Ship(Ship.ShipType.Cruiser));
-            PlaceShip(new Ship(Ship.ShipType.Destroyer));
+            //PlaceShip(new Ship(Ship.ShipType.Destroyer));
         }
-
+        /// <summary>
+        /// Selects a set of coordinates for a new ship by selecting a random origin cell, then
+        /// adding more cells in a random direction from the origin cell. If the ship goes out of bounds
+        /// or runs into a another ship, the entire process is repeated until a suitable set of cells is found
+        /// </summary>
+        /// <param name="ship"></param>
         public override void PlaceShip(Ship ship)
         {
             var BoardGrid = Board._cells;
@@ -69,27 +74,17 @@ namespace BattleShip
                 
             } while (Board.IsCollision(PossibleLocation) || !Board.IsInBounds(PossibleLocation));
 
-
             Board.AddShip(ship, PossibleLocation);
             ship.isVertical = ShipIsVertical;
             ShipsRemaining++;
 
-
-            //ConsoleKeyInfo keyInfo;
-            //var UI = new UIGamePlay(Board);
-
-            /*var ui = new UIPlacingShips(Board, ship);
-            PossibleLocation = ui.HandleUserInput();
-
-            while (Board.IsCollision(PossibleLocation))
-            {
-                PossibleLocation = ui.HandleUserInput();
-            }
-
-            Board.AddShip(ship, PossibleLocation);*/
-
         }
-
+        /// <summary>
+        /// Selects a random cell to fire a shot. The caller will keep calling until a suitable
+        /// cell is returned
+        /// </summary>
+        /// <param name="ui"></param>
+        /// <returns>A cell with random coordinates 0-9</returns>
         public override Cell MakeMove(UIGamePlay ui)
         {
             return new Cell(rand.Next(0, 9), rand.Next(0, 9));
